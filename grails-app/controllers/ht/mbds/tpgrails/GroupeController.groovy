@@ -29,6 +29,8 @@ class GroupeController {
         }
 
         try {
+
+
             groupeService.save(groupe)
         } catch (ValidationException e) {
             respond groupe.errors, view:'create'
@@ -42,6 +44,28 @@ class GroupeController {
             }
             '*' { respond groupe, [status: CREATED] }
         }
+    }
+
+    def add_group(){
+        respond new Groupe(params)
+    }
+
+    def save_group(){
+        def groupe = new Groupe(params)
+        /*groupe.nomGroupe = params.nom
+        groupe.description = params.desc
+        groupe.image = request.get('image').getBytes()*/
+
+        groupe.save()
+
+        redirect(action: 'index')
+
+    }
+
+    def getImage(Long id){
+        def groupe = groupeService.get(id)
+        response.outputStream << groupe.image
+        response.outputStream.flush()
     }
 
     def edit(Long id) {

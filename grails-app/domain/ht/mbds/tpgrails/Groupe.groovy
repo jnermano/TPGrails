@@ -4,14 +4,17 @@ class Groupe {
 
     String nomGroupe
     String description
+    byte[] image
 
-    Illustration illustrationGroup
     static hasMany = [listPois :Poi]
 
-
-
     static constraints = {
-        illustrationGroup nullable: true
         listPois nullable: true
+        image maxSize: 1024 * 1024 * 50
+    }
+
+    def getImage(){
+        response.outputStream << groupe.image
+        response.outputStream.flush()
     }
 }

@@ -2,37 +2,47 @@
 <html>
     <head>
         <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'groupe.label', default: 'Groupe')}" />
+        <g:set var="entityName" value="${message(code: 'poi.label', default: 'Poi')}" />
         <title><g:message code="default.create.label" args="[entityName]" /></title>
     </head>
     <body>
-        <a href="#create-groupe" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+        <a href="#create-poi" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
         <div class="nav" role="navigation">
             <ul>
                 <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
                 <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
             </ul>
         </div>
-        <div id="create-groupe" class="content scaffold-create" role="main">
+        <div id="create-poi" class="content scaffold-create" role="main">
             <h1><g:message code="default.create.label" args="[entityName]" /></h1>
             <g:if test="${flash.message}">
             <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <g:hasErrors bean="${this.groupe}">
+            <g:hasErrors bean="${this.poi}">
             <ul class="errors" role="alert">
-                <g:eachError bean="${this.groupe}" var="error">
+                <g:eachError bean="${this.poi}" var="error">
                 <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
                 </g:eachError>
             </ul>
             </g:hasErrors>
-            <g:form resource="${this.groupe}" method="POST">
-                <fieldset class="form">
-                    <f:all bean="groupe"/>
-                </fieldset>
+            <g:uploadForm action="save_poi">
+
+
+
+                    <div><label>Nom</label><input type="text" name="nom" /></div>
+                    <div><label>Emplacement</label><input type="text" name="emplacement" /></div>
+                    <div><label>Latitude</label><input type="text" name="latitude" /></div>
+                    <div><label>Longitude</label><input type="text" name="longitude" /></div>
+
+                    <div><label>Image</label><input type="file" name="image" /></div>
+
+
+
                 <fieldset class="buttons">
-                    <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+                    <g:submitButton name="upload" class="save" value="Upload" />
                 </fieldset>
-            </g:form>
+
+            </g:uploadForm>
         </div>
     </body>
 </html>

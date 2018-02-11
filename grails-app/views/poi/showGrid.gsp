@@ -22,7 +22,17 @@
             <div class="gallery">
 
                 <g:link controller="poi" action="show" id="${p.id}">
-                    <img src="http://via.placeholder.com/300x200" alt="Fjords" width="300" height="200">
+                    <img
+                            src='
+                                <g:if test="${p.listImage.size() > 0}">
+                                    getImage/${p.listImage[0].id}
+                                </g:if>
+                                <g:else>
+                                    http://via.placeholder.com/300x200
+                                </g:else>
+                            '
+                            alt="Fjords"
+                            width="300" height="200">
                 </g:link>
 
                 <div class="desc">${p.description}</div>

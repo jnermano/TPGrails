@@ -7,6 +7,7 @@ import static org.springframework.http.HttpStatus.*
 class PoiController {
 
     PoiService poiService
+    IllustrationService illustrationService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -32,6 +33,32 @@ class PoiController {
 
     def create() {
         respond new Poi(params)
+    }
+
+    def createpoi(){
+        respond new Poi(params)
+    }
+
+    def save_poi(){
+        def poi = new Poi(params)
+        poi.save()
+
+        def file = params.get("image")
+
+        def illustration = new Illustration()
+        illustration.nomImage = poi.nom + poi.id
+        illustration.pathImage = poi.description + poi.id
+        illustration.image = file.getBytes()
+        illustration.poiIllustration = poi
+        illustration.save()
+
+        redirect(action: 'index')
+    }
+
+    def getImage(Long id){
+        def illustration = illustrationService.get(id)
+        response.outputStream << illustration.image
+        response.outputStream.flush()
     }
 
     def save(Poi poi) {

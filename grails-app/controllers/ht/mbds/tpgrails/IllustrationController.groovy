@@ -1,6 +1,5 @@
 package ht.mbds.tpgrails
 
-import grails.converters.JSON
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
@@ -15,10 +14,6 @@ class IllustrationController {
         respond illustrationService.list(params), model:[illustrationCount: illustrationService.count()]
     }
 
-   def illustrationJson(Integer id) {
-       def illis =  illustrationService.list()
-        render (illis as JSON)
-    }
     def show(Long id) {
         respond illustrationService.get(id)
     }
@@ -35,6 +30,7 @@ class IllustrationController {
 
         try {
             illustrationService.save(illustration)
+
         } catch (ValidationException e) {
             respond illustration.errors, view:'create'
             return
