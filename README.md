@@ -5,7 +5,7 @@
 L’objectif de ce premier TP est de vous aider à mettre en place votre environnement de travail et vous donner toutes les
 informations nécessaires à la réalisation du projet.
 
-Cours de Grails pour la MBDS-Haiti, promotion de 2018.
+Cours de Grails pour la MBDS-Haiti, promotion de 2017 - 2018.
 
 
 ####Professeur :  Grégory Galli (greg.galli@tokidev.fr)
