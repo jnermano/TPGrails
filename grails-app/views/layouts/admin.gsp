@@ -92,7 +92,7 @@
                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseUser"
                    data-parent="#exampleAccordion">
                     <i class="fa fa-fw fa-user"></i>
-                    <span class="nav-link-text">Utilisateur</span>
+                    <span class="nav-link-text">Utilisateurs</span>
                 </a>
                 <ul class="sidenav-second-level collapse" id="collapseUser">
                     <li>
@@ -103,6 +103,24 @@
                     </li>
                 </ul>
             </li>
+
+
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseRole"
+                   data-parent="#exampleAccordion">
+                    <i class="fa fa-fw fa-user"></i>
+                    <span class="nav-link-text">Roles </span>
+                </a>
+                <ul class="sidenav-second-level collapse" id="collapseRole">
+                    <li>
+                        <g:link controller="role" action="index">Roles</g:link>
+                    </li>
+                    <li>
+                        <g:link controller="userRole" action="index">Role/Utilisateur</g:link>
+                    </li>
+                </ul>
+            </li>
+
 
         </ul>
         <ul class="navbar-nav sidenav-toggler">
