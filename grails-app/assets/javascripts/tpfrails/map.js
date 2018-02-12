@@ -31,11 +31,25 @@ var createMarker = function (info) {
         position: new google.maps.LatLng(info.latitude, info.longitude),
         title: info.nom
     });
+
+    console.log(info.listImage);
+    var imageUrl;
+    if (info.listImage.length > 0){
+        imageUrl = "/poi/getImage/" + info.listImage[0].id;
+    }else{
+        imageUrl = "http://via.placeholder.com/300x200";
+    }
+
+    console.log("imageUrl : " + imageUrl);
+
+
     marker.content = '<div class="infoWindowContent"><img src="" alt="" style="height:100px;">' +
-        '<div class="col-md-6"><asset:image src="' + info.id + '.jpg" height="100"/></div> ' +
+
+        '<div class="col-md-6"><img src="' + imageUrl + '" height="100"/></div> ' +
+
         '<div class="col-md-6">' + info.emplacement + '</div>' +
         '<div class="col-md-12" style="text-align:center;margin-top:20px;"> <hr>' +
-        '<button class="btn btn-info btn-xs" onclick="loadCustum(' + info.id + ')" style="margin-top:20px;">Voir plus</button> </div>' +
+        '<a class="btn btn-primary" href="/poi/show/' + info.id + '"> Voir détails </a> </div>' +
         '</div>';
     tableau.push(marker);
     google.maps.event.addListener(marker, 'click', function () {
