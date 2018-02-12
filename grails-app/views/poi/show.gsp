@@ -30,12 +30,12 @@
                             <td colspan="2">
 
                                 <g:each in="${poi.listImage}" var="im">
-                                    <div class="col-md-3">
+                                    %{--<div class="col-md-3">--}%
                                         <img
                                                 src='${createLink(controller:"poi", action:"getImage", id:"${im.id}")}'
                                                 alt="Fjords"
                                                 width="300" height="200" style="width: 300px; height: 200px; margin: 5px" />
-                                    </div>
+                                    %{--</div>--}%
 
                                 </g:each>
 
@@ -53,6 +53,22 @@
                             <th>Description</th>
                             <td>${poi.description}</td>
                         </tr>
+
+                        <tr>
+                            <th>Emplacement</th>
+                            <td>${poi.emplacement}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Latitude</th>
+                            <td>${poi.latitude}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Longitude</th>
+                            <td>${poi.longitude}</td>
+                        </tr>
+
                     </table>
 
                 </div>
