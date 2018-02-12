@@ -53,6 +53,7 @@
                 </a>
             </li>
 
+
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseGroupe"
                    data-parent="#exampleAccordion">
@@ -63,11 +64,15 @@
                     <li>
                         <g:link controller="groupe" action="index">Liste</g:link>
                     </li>
-                    <li>
+                    <sec:ifAnyGranted roles='ROLE_ADMIN,ROLE_MODER'>
+                        <li>
                         <g:link controller="groupe" action="create">Nouveau</g:link>
-                    </li>
+                    </sec:ifAnyGranted>
+                </li>
                 </ul>
             </li>
+
+
 
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsePoi"
@@ -79,48 +84,55 @@
                     <li>
                         <g:link controller="poi" action="index">Liste</g:link>
                     </li>
+
+
                     <li>
-                    <li><g:link controller="poi" action="showGrid">Grille</g:link></li>
+                        <g:link controller="poi" action="showGrid">Grille</g:link>
+                    </li>
+                    <sec:ifAnyGranted roles='ROLE_ADMIN,ROLE_MODER'>
+                        <li>
+                            <g:link controller="poi" action="create">Nouveau</g:link>
+                        </li>
+                    </sec:ifAnyGranted>
+
+                </ul>
+            </li>
+
+            <sec:ifAnyGranted roles='ROLE_ADMIN,ROLE_MODER'>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseUser"
+                       data-parent="#exampleAccordion">
+                        <i class="fa fa-fw fa-user"></i>
+                        <span class="nav-link-text">Utilisateurs</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="collapseUser">
+                        <li>
+                            <g:link controller="user" action="index">Liste</g:link>
+                        </li>
+                        <li>
+                            <g:link controller="user" action="create">Nouveau</g:link>
+                        </li>
+                    </ul>
                 </li>
-                    <li>
-                        <g:link controller="poi" action="create">Nouveau</g:link>
-                    </li>
-                </ul>
-            </li>
+            </sec:ifAnyGranted>
 
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseUser"
-                   data-parent="#exampleAccordion">
-                    <i class="fa fa-fw fa-user"></i>
-                    <span class="nav-link-text">Utilisateurs</span>
-                </a>
-                <ul class="sidenav-second-level collapse" id="collapseUser">
-                    <li>
-                        <g:link controller="user" action="index">Liste</g:link>
-                    </li>
-                    <li>
-                        <g:link controller="user" action="create">Nouveau</g:link>
-                    </li>
-                </ul>
-            </li>
-
-
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
-                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseRole"
-                   data-parent="#exampleAccordion">
-                    <i class="fa fa-fw fa-user"></i>
-                    <span class="nav-link-text">Roles </span>
-                </a>
-                <ul class="sidenav-second-level collapse" id="collapseRole">
-                    <li>
-                        <g:link controller="role" action="index">Roles</g:link>
-                    </li>
-                    <li>
-                        <g:link controller="userRole" action="index">Role/Utilisateur</g:link>
-                    </li>
-                </ul>
-            </li>
-
+            <sec:ifAnyGranted roles='ROLE_ADMIN'>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseRole"
+                       data-parent="#exampleAccordion">
+                        <i class="fa fa-fw fa-user"></i>
+                        <span class="nav-link-text">Roles</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="collapseRole">
+                        <li>
+                            <g:link controller="role" action="index">Roles</g:link>
+                        </li>
+                        <li>
+                            <g:link controller="userRole" action="index">Role/Utilisateur</g:link>
+                        </li>
+                    </ul>
+                </li>
+            </sec:ifAnyGranted>
 
         </ul>
         <ul class="navbar-nav sidenav-toggler">
@@ -132,10 +144,9 @@
         </ul>
         <ul class="navbar-nav ml-auto">
 
-
             <sec:ifNotLoggedIn>
                 <li class="nav-item">
-                    <g:link controller="login" action="auth"  class="nav-link">
+                    <g:link controller="login" action="auth" class="nav-link">
                         <i class="fa fa-fw fa-signing"></i>Login
                     </g:link>
                 </li>
@@ -143,13 +154,14 @@
 
             <sec:ifLoggedIn>
                 <li class="nav-item">
-                    <g:link controller="profile" action="index" class="nav-link">
+                    <g:link controller="user" action="show" id='${sec.loggedInUserInfo(field: "id")}' class="nav-link">
                         Hello, ${sec.loggedInUserInfo(field: 'username')}
                     </g:link>
                 </li>
 
                 <li class="nav-item">
-                    <g:link controller="logout" action="index" class="nav-link" data-toggle="modal" data-target="#exampleModal">
+                    <g:link controller="logout" action="index" class="nav-link" data-toggle="modal"
+                            data-target="#exampleModal">
                         <i class="fa fa-fw fa-sign-out"></i>Logout
                     </g:link>
                 </li>

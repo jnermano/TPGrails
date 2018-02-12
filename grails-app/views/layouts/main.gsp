@@ -38,7 +38,7 @@
             <ul class="nav navbar-nav navbar-right">
                 %{--<g:pageProperty name="page.nav" />--}%
 
-
+%{--
                 <li><a href="/">Accueil</a></li>
                 <li><g:link controller="poi" action="showGrid">POIs</g:link></li>
 
@@ -50,7 +50,7 @@
                     <li><g:link controller="profile"
                                 action="index">${sec.loggedInUserInfo(field: 'username')}</g:link></li>
                     <li><g:link controller="logout" action="index">Logout</g:link></li>
-                </sec:ifLoggedIn>
+                </sec:ifLoggedIn>--}%
             </ul>
         </div>
     </div>

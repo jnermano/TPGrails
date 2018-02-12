@@ -1,8 +1,11 @@
 package ht.mbds.tpgrails
 
+import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
+
+@Secured(['ROLE_ADMIN', 'ROLE_MODER'])
 class UserController {
 
     UserService userService
@@ -14,13 +17,16 @@ class UserController {
         respond userService.list(params), model:[userCount: userService.count()]
     }
 
+    @Secured(['ROLE_ADMIN', 'ROLE_MODER', 'ROLE_USER'])
     def show(Long id) {
         respond userService.get(id)
     }
 
+
     def create() {
         respond new User(params)
     }
+
 
     def save(User user) {
         if (user == null) {
@@ -44,9 +50,11 @@ class UserController {
         }
     }
 
+
     def edit(Long id) {
         respond userService.get(id)
     }
+
 
     def update(User user) {
         if (user == null) {
@@ -69,6 +77,7 @@ class UserController {
             '*'{ respond user, [status: OK] }
         }
     }
+
 
     def delete(Long id) {
         if (id == null) {

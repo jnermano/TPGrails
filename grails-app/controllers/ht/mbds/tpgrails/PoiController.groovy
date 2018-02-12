@@ -1,9 +1,11 @@
 package ht.mbds.tpgrails
 
+import grails.plugin.springsecurity.annotation.Secured
 import grails.converters.JSON
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
+@Secured(['ROLE_ADMIN', 'ROLE_MODER'])
 class PoiController {
 
     PoiService poiService
@@ -11,24 +13,29 @@ class PoiController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    @Secured(['permitAll'])
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond poiService.list(params), model:[poiCount: poiService.count()]
     }
 
+    @Secured(['permitAll'])
     def indexJson() {
          def pois = poiService.list()
         render (pois as JSON)
     }
 
+    @Secured(['permitAll'])
     def show(Long id) {
         respond poiService.get(id)
     }
 
+    @Secured(['permitAll'])
     def showGrid(Integer max){
         params.max = Math.min(max ?: 10, 100)
         respond poiService.list(params), model:[poiCount: poiService.count()]
     }
+
 
     def create() {
         respond new Poi(params)
@@ -40,6 +47,7 @@ class PoiController {
         response.outputStream << illustration.image
         response.outputStream.flush()
     }
+
 
     def save(Poi poi) {
         if (poi == null) {
@@ -79,9 +87,11 @@ class PoiController {
         }
     }
 
+
     def edit(Long id) {
         respond poiService.get(id)
     }
+
 
     def update(Poi poi) {
         if (poi == null) {
@@ -120,6 +130,7 @@ class PoiController {
             '*'{ respond poi, [status: OK] }
         }
     }
+
 
     def delete(Long id) {
         if (id == null) {

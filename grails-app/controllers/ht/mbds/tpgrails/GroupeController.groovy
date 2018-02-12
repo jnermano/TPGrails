@@ -1,27 +1,33 @@
 package ht.mbds.tpgrails
 
-import grails.validation.ValidationException
 
+import grails.plugin.springsecurity.annotation.Secured
+import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
+@Secured(['ROLE_ADMIN', 'ROLE_MODER'])
 class GroupeController {
 
     GroupeService groupeService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    @Secured(['permitAll'])
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond groupeService.list(params), model: [groupeCount: groupeService.count()]
     }
 
+    @Secured(['permitAll'])
     def show(Long id) {
         respond groupeService.get(id)
     }
 
+
     def create() {
         respond new Groupe(params)
     }
+
 
     def save(Groupe groupe) {
         if (groupe == null) {
@@ -48,15 +54,18 @@ class GroupeController {
     }
 
 
+    @Secured(['ROLE_ADMIN', 'ROLE_MODER', 'ROLE_USER'])
     def getImage(Long id) {
         def groupe = groupeService.get(id)
         response.outputStream << groupe.image
         response.outputStream.flush()
     }
 
+
     def edit(Long id) {
         respond groupeService.get(id)
     }
+
 
     def update(Groupe groupe) {
         if (groupe == null) {
@@ -88,6 +97,7 @@ class GroupeController {
             '*' { respond groupe, [status: OK] }
         }
     }
+
 
     def delete(Long id) {
         if (id == null) {
