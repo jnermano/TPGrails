@@ -21,7 +21,6 @@ class PoiController {
         render (pois as JSON)
     }
 
-
     def show(Long id) {
         respond poiService.get(id)
     }
@@ -35,25 +34,6 @@ class PoiController {
         respond new Poi(params)
     }
 
-    def createpoi(){
-        respond new Poi(params)
-    }
-
-    def save_poi(){
-        def poi = new Poi(params)
-        poi.save()
-
-        def file = params.get("image")
-
-        def illustration = new Illustration()
-        illustration.nomImage = poi.nom + poi.id
-        illustration.pathImage = poi.description + poi.id
-        illustration.image = file.getBytes()
-        illustration.poiIllustration = poi
-        illustration.save()
-
-        redirect(action: 'index')
-    }
 
     def getImage(Long id){
         def illustration = illustrationService.get(id)
@@ -69,6 +49,22 @@ class PoiController {
 
         try {
             poiService.save(poi)
+
+            for(int i = 1; i < 5; i++){
+                def file = params.get("image" + i)
+
+                if (file == null)
+                    continue
+
+
+                def illustration = new Illustration()
+                illustration.nomImage = poi.nom + poi.id
+                illustration.pathImage = poi.description + poi.id
+                illustration.image = file.getBytes()
+                illustration.poiIllustration = poi
+                illustration.save()
+            }
+
         } catch (ValidationException e) {
             respond poi.errors, view:'create'
             return
@@ -95,6 +91,22 @@ class PoiController {
 
         try {
             poiService.save(poi)
+
+            for(int i = 1; i < 5; i++){
+                def file = params.get("image" + i)
+
+                if (file == null)
+                    continue
+
+
+                def illustration = new Illustration()
+                illustration.nomImage = poi.nom + poi.id
+                illustration.pathImage = poi.description + poi.id
+                illustration.image = file.getBytes()
+                illustration.poiIllustration = poi
+                illustration.save()
+            }
+
         } catch (ValidationException e) {
             respond poi.errors, view:'edit'
             return

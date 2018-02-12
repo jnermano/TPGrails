@@ -11,10 +11,7 @@ class Groupe {
     static constraints = {
         listPois nullable: true
         image maxSize: 1024 * 1024 * 50
+        image nullable: true
     }
 
-    def getImage(){
-        response.outputStream << groupe.image
-        response.outputStream.flush()
-    }
 }

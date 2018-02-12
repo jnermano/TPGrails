@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="layout" content="main" />
+        <meta name="layout" content="admin" />
         <g:set var="entityName" value="${message(code: 'groupe.label', default: 'Groupe')}" />
         <title><g:message code="default.edit.label" args="[entityName]" /></title>
     </head>
@@ -26,15 +26,35 @@
                 </g:eachError>
             </ul>
             </g:hasErrors>
-            <g:form resource="${this.groupe}" method="PUT">
-                <g:hiddenField name="version" value="${this.groupe?.version}" />
-                <fieldset class="form">
-                    <f:all bean="groupe"/>
-                </fieldset>
-                <fieldset class="buttons">
-                    <input class="save" type="submit" value="${message(code: 'default.button.update.label', default: 'Update')}" />
-                </fieldset>
-            </g:form>
+
+
+            <g:uploadForm resource="${this.groupe}" action="update">
+                <div class="row">
+                    <div class="col-md-5">
+
+                        <input type="hidden" name="id" value="${this.groupe.id}">
+
+                        <div class="form-group "><label>Nom</label>
+                            <input type="text" name="nomGroupe" value="${this.groupe.nomGroupe}" class="form-control"/></div>
+
+                        <div class="form-group "><label>Description</label>
+                            <input type="text" name="description" value="${this.groupe.description}" class="form-control"/>
+                        </div>
+
+                        <div class="form-group "><label>Image</label> <br/>
+                            <input type="file" name="image"/></div>
+
+                        <fieldset class="buttons">
+                            <g:submitButton name="upload" class="save btn btn-primary" value="Upload"/>
+                        </fieldset>
+
+                    </div>
+                </div>
+
+            </g:uploadForm>
+
+
+
         </div>
     </body>
 </html>

@@ -1,6 +1,7 @@
 package ht.mbds.tpgrails
 
 import grails.validation.ValidationException
+
 import static org.springframework.http.HttpStatus.*
 
 class GroupeController {
@@ -11,7 +12,7 @@ class GroupeController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond groupeService.list(params), model:[groupeCount: groupeService.count()]
+        respond groupeService.list(params), model: [groupeCount: groupeService.count()]
     }
 
     def show(Long id) {
@@ -33,7 +34,7 @@ class GroupeController {
 
             groupeService.save(groupe)
         } catch (ValidationException e) {
-            respond groupe.errors, view:'create'
+            respond groupe.errors, view: 'create'
             return
         }
 
@@ -46,23 +47,8 @@ class GroupeController {
         }
     }
 
-    def add_group(){
-        respond new Groupe(params)
-    }
 
-    def save_group(){
-        def groupe = new Groupe(params)
-        /*groupe.nomGroupe = params.nom
-        groupe.description = params.desc
-        groupe.image = request.get('image').getBytes()*/
-
-        groupe.save()
-
-        redirect(action: 'index')
-
-    }
-
-    def getImage(Long id){
+    def getImage(Long id) {
         def groupe = groupeService.get(id)
         response.outputStream << groupe.image
         response.outputStream.flush()
@@ -79,9 +65,18 @@ class GroupeController {
         }
 
         try {
+
+            /*def file = params.get("image")
+            groupe.image = file.getBytes()*/
+
+            /*def id = groupe.id
+            groupe = new Groupe(params)
+            groupe.id = id*/
+
+
             groupeService.save(groupe)
         } catch (ValidationException e) {
-            respond groupe.errors, view:'edit'
+            respond groupe.errors, view: 'edit'
             return
         }
 
@@ -90,7 +85,7 @@ class GroupeController {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'groupe.label', default: 'Groupe'), groupe.id])
                 redirect groupe
             }
-            '*'{ respond groupe, [status: OK] }
+            '*' { respond groupe, [status: OK] }
         }
     }
 
@@ -105,9 +100,9 @@ class GroupeController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'groupe.label', default: 'Groupe'), id])
-                redirect action:"index", method:"GET"
+                redirect action: "index", method: "GET"
             }
-            '*'{ render status: NO_CONTENT }
+            '*' { render status: NO_CONTENT }
         }
     }
 
@@ -117,7 +112,7 @@ class GroupeController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'groupe.label', default: 'Groupe'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 }

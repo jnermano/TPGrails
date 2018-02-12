@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="layout" content="mainContent" />
+        <meta name="layout" content="admin" />
         <g:set var="entityName" value="${message(code: 'poi.label', default: 'Poi')}" />
         <title><g:message code="default.list.label" args="[entityName]" /></title>
     </head>
@@ -20,7 +20,7 @@
             <g:if test="${flash.message}">
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <f:table collection="${poiList}" />
+            <f:table class="table table-bordered" collection="${poiList}" />
 
             <div class="pagination">
                 <g:paginate total="${poiCount ?: 0}" />

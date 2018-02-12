@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="layout" content="main" />
+        <meta name="layout" content="admin" />
         <g:set var="entityName" value="${message(code: 'groupe.label', default: 'Groupe')}" />
         <title><g:message code="default.list.label" args="[entityName]" /></title>
     </head>
@@ -18,7 +18,28 @@
             <g:if test="${flash.message}">
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <f:table collection="${groupeList}" />
+
+
+            <table class="table table-bordered table-responsive">
+                <thead>
+                    <tr>
+                        <th>Nom Groupe</th>
+                        <th>Description</th>
+                        <th>Nombre de POIs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <g:each in="${groupeList}" var="g">
+                        <tr>
+                            <td><g:link controller="groupe" action="show" id="${g.id}" >${g.nomGroupe}</g:link></td>
+                            <td>${g.description}</td>
+                            <td>${g.listPois.size()}</td>
+                        </tr>
+                    </g:each>
+                </tbody>
+            </table>
+
+
 
             <div class="pagination">
                 <g:paginate total="${groupeCount ?: 0}" />
