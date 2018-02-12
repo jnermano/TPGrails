@@ -23,17 +23,20 @@
 
 
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
 
-                    <table class="table table-bordered col-md-6">
+                    <table class="table table-bordered">
                         <tr>
                             <td colspan="2">
 
-                                <g:each in="poi.listImage" var="im">
-                                    <img
-                                            src='${createLink(controller:"poi", action:"getImage", id:"${im}")}'
-                                            alt="Fjords"
-                                            width="300" height="200" style="width: 300px; height: 200px; margin: 5px" />
+                                <g:each in="${poi.listImage}" var="im">
+                                    <div class="col-md-3">
+                                        <img
+                                                src='${createLink(controller:"poi", action:"getImage", id:"${im.id}")}'
+                                                alt="Fjords"
+                                                width="300" height="200" style="width: 300px; height: 200px; margin: 5px" />
+                                    </div>
+
                                 </g:each>
 
 
